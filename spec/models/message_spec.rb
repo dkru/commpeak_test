@@ -11,4 +11,12 @@ RSpec.describe Message, type: :model do
     it { is_expected.to have_db_column(:subject).of_type(:string) }
     it { is_expected.to have_db_column(:contents).of_type(:string) }
   end
+
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:subject) }
+    it { should validate_presence_of(:contents) }
+    it { should validate_uniqueness_of(:email) }
+  end
 end
