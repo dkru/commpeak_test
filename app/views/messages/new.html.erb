@@ -1,0 +1,5 @@
+<%= form_tag '/messages', method: :post do %>
+  <%= email_field_tag :email %>
+  <%= text_field_tag :text %>
+  <%= submit_tag %>
+<% end %>
