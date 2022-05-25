@@ -3,7 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe "Messages", type: :request do
-  let(:message) { { email: Faker::Internet.email, text: Faker::Quote.matz } }
+  let(:message) do 
+    { 
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      subject: Faker::Book.title,
+      contents: Faker::Quote.matz 
+    } 
+  end
   
   it "GET new" do
     get '/messages/new'

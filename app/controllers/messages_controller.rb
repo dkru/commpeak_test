@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
 
   def create
     CSV.open("storage/messages.csv", 'a') do |f| 
-      f << message_params.to_hash.fetch_values('email', 'text')
+      f << message_params.to_hash.fetch_values('name', 'email', 'subject', 'contents')
     end
     head :created
   end
@@ -14,6 +14,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.permit(:email, :text)
+    params.permit(:name, :email, :subject, :contents)
   end
 end
