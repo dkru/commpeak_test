@@ -1,19 +1,38 @@
+# frozen_string_literal: true
+
+# messages request machine
 class MessagesController < ApplicationController
   require 'csv'
 
-  def new
+  def index
+    @messages = Message.all
   end
 
   def create
-    CSV.open("storage/messages.csv", 'a') do |f| 
+    CSV.open('storage/messages.csv', 'a') do |f|
       f << message_params.to_hash.fetch_values('name', 'email', 'subject', 'contents')
     end
     head :created
   end
 
+  def import
+    if Rails.env.production?
+      ImportMessagesJob.perform_later
+    else
+      import_service = ImportMessagesService.new('storage/messages.csv')
+      import_service.write_to_db
+    end
+  end
+
+  def destroy
+    message = Message.find_by_id(params[:id])
+    message.try(:destroy)
+    redirect_to messages_path
+  end
+
   private
 
   def message_params
-    params.permit(:name, :email, :subject, :contents)
+    params.permit(:id, :name, :email, :subject, :contents)
   end
 end

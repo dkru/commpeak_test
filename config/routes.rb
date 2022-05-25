@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-  resources :messages, only: [:new, :create]
+  root "messages#index"
+  resources :messages, except: [:edit, :show, :update] do
+    collection { get :import }
+  end
 end

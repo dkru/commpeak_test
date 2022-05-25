@@ -1,0 +1,7 @@
+<tr>
+  <td><%= message.name %></td>
+  <td><%= message.email %></td>
+  <td><%= message.subject %></td>
+  <td><%= message.contents %></td>
+  <td><%= link_to 'destroy', message, data: {'turbo-method': :delete, turbo_confirm: 'Are you sure?' } %></td>
+</tr>

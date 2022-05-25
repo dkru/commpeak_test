@@ -1,0 +1,19 @@
+<%= link_to 'Import', import_messages_path %>
+<%= link_to 'New message', new_message_path %>
+
+<% if @messages.empty? %>
+  <p>messages not found </p>
+<% else %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Subject</th>
+      <th>Contents</th>
+      <th></th>
+    </tr>
+    <% @messages.each do |message| %>
+      <%= render message %>
+    <% end %>
+  </table>
+<%end%>
