@@ -9,10 +9,15 @@ class MessagesController < ApplicationController
   end
 
   def create
-    CSV.open('storage/messages.csv', 'a') do |f|
-      f << message_params.to_hash.fetch_values('name', 'email', 'subject', 'contents')
+    message = Message.new(message_params)
+    if message.valid?
+      CSV.open('storage/messages.csv', 'a') do |f|
+        f << message.attributes.fetch_values('name', 'email', 'subject', 'contents')
+      end
+      head :created
+    else
+      head :unprocessable_entity
     end
-    head :created
   end
 
   def import
