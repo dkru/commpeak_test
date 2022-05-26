@@ -18,7 +18,8 @@ class MessageSerializer
   private
 
   def serialize_submiter
-    Submiter.find_or_initialize_by(email: @data['email'])
+    @submiter = Submiter.find_or_initialize_by(email: @data['email'])
+    @submiter.valid? ? @submiter : nil
   end
 
   def serialize_message

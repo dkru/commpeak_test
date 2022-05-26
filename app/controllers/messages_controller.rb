@@ -10,7 +10,6 @@ class MessagesController < ApplicationController
 
   def create
     message = MessageSerializer.new(message_params)
-    message = message.serialize
     if message.valid?
       CSV.open('storage/messages.csv', 'a') do |f|
         f << message_params.to_hash.fetch_values('name', 'email', 'subject', 'contents')
