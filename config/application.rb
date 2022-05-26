@@ -23,5 +23,6 @@ module CommpeackTest
     config.active_job.queue_adapter = :sidekiq
 
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '**/')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'seerializers', '**/')]
   end
 end

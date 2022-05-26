@@ -9,10 +9,11 @@ class MessagesController < ApplicationController
   end
 
   def create
-    message = Message.new(message_params)
+    message = MessageSerializer.new(message_params)
+    message = message.serialize
     if message.valid?
       CSV.open('storage/messages.csv', 'a') do |f|
-        f << message.attributes.fetch_values('name', 'email', 'subject', 'contents')
+        f << message_params.to_hash.fetch_values('name', 'email', 'subject', 'contents')
       end
       head :created
     else

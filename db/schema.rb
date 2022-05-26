@@ -10,14 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_25_115145) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_26_070719) do
   create_table "messages", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.string "subject"
     t.string "contents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "submiter_id", null: false
+    t.index ["submiter_id"], name: "index_messages_on_submiter_id"
   end
 
+  create_table "submiters", force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "messages", "submiters"
 end

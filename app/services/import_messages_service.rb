@@ -10,14 +10,15 @@ class ImportMessagesService
 
   def write_to_db
     @file.read.each do |row|
-      message = Message.new(serialize(row))
+      message = MessageSerializer.new(to_json(row))
+      message = message.serialize
       message.save if message.valid?
     end
   end
 
   private
 
-  def serialize(row)
+  def to_json(row)
     {
       name: row[0],
       email: row[1],

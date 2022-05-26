@@ -1,0 +1,6 @@
+{ 
+  "email": "dev@dev.to",
+  "name": "Test Developer",
+  "subject": "Hi, I'm a test message",
+  "contents": "Some very long string"
+}

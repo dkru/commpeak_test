@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Message < ApplicationRecord
-  validates_presence_of :name, :email, :subject, :contents
-  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  belongs_to :submiter
+
+  validates_presence_of :name, :subject, :contents
+  validates_associated :submiter
 end

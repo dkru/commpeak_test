@@ -3,14 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Messages', type: :request do
-  let(:message) do
-    {
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      subject: Faker::Book.title,
-      contents: Faker::Quote.matz
-    }
-  end
+  let(:message) { JSON.parse(File.read('spec/fixtures/message.json')) }
 
   it 'GET new' do
     get '/messages/new'
@@ -33,7 +26,6 @@ RSpec.describe 'Messages', type: :request do
   end
 
   it 'DELETE message' do
-    Message.create(message)
     delete '/messages/:id'
     expect(response).to have_http_status 302
   end
